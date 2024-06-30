@@ -13,15 +13,18 @@ public class Soundex
 
         StringBuilder soundex = new StringBuilder();
         soundex.Append(char.ToUpper(name[0]));
-        char prevCode = GetSoundexCode(name[0]);
-        AppendSoundexCodes(name, soundex, ref prevCode);
+
+        AppendSoundexCodes(name, soundex);
+
         CheckSoundexAppend(soundex);
 
         return soundex.ToString();
     }
 
-    private static void AppendSoundexCodes(string name, StringBuilder soundex, ref char prevCode)
+    private static void AppendSoundexCodes(string name, StringBuilder soundex)
     {
+        char prevCode = GetSoundexCode(name[0]);
+
         for (int i = 1; i < name.Length && soundex.Length < 4; i++)
         {
             char code = GetSoundexCode(name[i]);
@@ -32,6 +35,7 @@ public class Soundex
             }
         }
     }
+
 
     private static bool IsCodeValid(char code, char prevCode)
     {
