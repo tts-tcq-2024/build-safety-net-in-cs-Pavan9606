@@ -14,13 +14,13 @@ public class Soundex
         StringBuilder soundex = new StringBuilder();
         soundex.Append(char.ToUpper(name[0]));
         char prevCode = GetSoundexCode(name[0]);
-        AppendGetSoundexCodes(name, soundex, ref prevCode);
+        AppendSoundexCodes(name, soundex, ref prevCode);
         CheckSoundexAppend(soundex);
 
         return soundex.ToString();
     }
 
-    private static void AppendGetSoundexCodes(string name, StringBuilder soundex, ref char prevCode)
+    private static void AppendSoundexCodes(string name, StringBuilder soundex, ref char prevCode)
     {
         for (int i = 1; i < name.Length && soundex.Length < 4; i++)
         {
@@ -45,6 +45,7 @@ public class Soundex
             soundex.Append('0');
         }
     }
+
     private static readonly Dictionary<char, char> SoundexMap = new Dictionary<char, char>
     {
         {'B', '1'}, {'F', '1'}, {'P', '1'}, {'V', '1'},
@@ -58,10 +59,6 @@ public class Soundex
     private static char GetSoundexCode(char c)
     {
         c = char.ToUpper(c);
-        if (SoundexMap.ContainsKey(c))
-        {
-            return SoundexMap[c];
-        }
-        return '0'; // For A, E, I, O, U, H, W, Y
+        return SoundexMap.TryGetValue(c, out char code) ? code : '0';
     }
 }
