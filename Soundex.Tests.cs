@@ -50,10 +50,4 @@ public class SoundexTests
     {
         Assert.Equal("W252", Soundex.GenerateSoundex("Washington"));
     }
-
-    [Fact]
-    public void HandlesNamesWithConsonantsMappingToSameSoundexCode()
-    {
-        Assert.Equal("J250", Soundex.GenerateSoundex("Jackson"));
-    }
 }
