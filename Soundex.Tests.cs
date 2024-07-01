@@ -13,19 +13,47 @@ public class SoundexTests
     {
         Assert.Equal("A000", Soundex.GenerateSoundex("A"));
     }
+
     [Fact]
     public void HandlesMultipleCharacter()
     {
-        string input = "Smith";
-        string expected = "S530";
-        Assert.Equal(expected ,Soundex.GenerateSoundex(input));
+      
+        Assert.Equal("S530", Soundex.GenerateSoundex("Smith"));
     }
-    
+
     [Fact]
-    public void  HandlesNameWithOnlyVowels()
-    { 
-        string inputstring = "Aeia";
-        string expectedvalue = "A000";
-        Assert.Equal(expectedvalue ,Soundex.GenerateSoundex(inputstring));
+    public void HandlesNameWithOnlyVowels()
+    {
+        Assert.Equal("A000", Soundex.GenerateSoundex("Aeia"));
+    }
+
+    [Fact]
+    public void HandlesUpperAndLowerCaseLetters()
+    {
+        Assert.Equal("S530", Soundex.GenerateSoundex("sMiTh"));
+    }
+
+    [Fact]
+    public void HandlesNamesWithDuplicateConsonants()
+    {
+        Assert.Equal( "T520", Soundex.GenerateSoundex("Tennessee"));
+    }
+
+    [Fact]
+    public void HandlesNamesWithNonAlphabeticCharacters()
+    {
+        Assert.Equal("O540", Soundex.GenerateSoundex("ONeill"));
+    }
+
+    [Fact]
+    public void HandlesLongNames()
+    {
+        Assert.Equal("W252", Soundex.GenerateSoundex("Washington"));
+    }
+
+    [Fact]
+    public void HandlesNamesWithConsonantsMappingToSameSoundexCode()
+    {
+        Assert.Equal("J250", Soundex.GenerateSoundex("Jackson"));
     }
 }
